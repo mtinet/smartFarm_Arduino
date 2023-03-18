@@ -1,5 +1,35 @@
 # smartFarm_Arduino
 
+## 사용방법  
+1. 전체 코드를 다운로드 받는다.  
+2. libraries폴더를 열고 AHT10TK.zip, LiquidCrystal_I2C-1.1.2.zip 파일의 압축을 푼다.  
+3. 압축이 풀린 두 폴더를 C:\Users\Manager 2\Documents\Arduino\libraries 에 넣는다.  
+4. Arduino IDE를 연다.  
+5. smartFarm_Arduino.ino 코드를 연다.  
+6. 보드를 Arudino Uno로, 포트를 Arduino가 연결된 포트로 선택한다. 
+7. Arduino Uno 보드에 업로드 한다. 
+
+## 회로 연결(AHT10과 LCD모듈은 I2C 방식을 사용하며 병렬로 연결한다.)
+### 센서  
+- 수분센서: A0
+- 조도센서: A1
+- 온도, 습도센서(AHT10): 
+  SCL - A5
+  SDA - A4
+
+### 액츄에이터  
+- LED: 13
+- LCD(LiquidCrystal_I2C): 
+  SCL - A5
+  SDA - A4
+  
+- 워터펌프: 
+  A_IA - 7
+  A_IB - 6
+- 팬: 
+  B_IA - 9
+  B_IB - 8
+
 ## 아두이노를 이용한 스마트팜 코드
 ```Arduino
 #include <Wire.h> 
