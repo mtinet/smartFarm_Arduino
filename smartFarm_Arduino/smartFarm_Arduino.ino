@@ -98,8 +98,12 @@ void loop() {
   delay(1000); 
 
   if(psoil < 30) { // 토양수분값이 30미만이면
-    analogWrite(A_IA, waterpumpPower);  // 값을 변화시키면 서 호스에서 나오는 물의 양을 적정하게 설정
-    digitalWrite(A_IB, LOW);    
+    for (int i = 120; i < waterpumpPower; i++) {
+      analogWrite(A_IA, i);  // 값을 변화시키면 서 호스에서 나오는 물의 양을 적정하게 설정
+      digitalWrite(A_IB, LOW);    
+      delay(150);
+      Serial.println(i);
+    }
   } else {  // 그 외 토양수분값이 측정되면 워터모터를 끄라
     digitalWrite(A_IA, LOW);
     digitalWrite(A_IB, LOW);
@@ -117,5 +121,4 @@ void loop() {
     digitalWrite(cds_ledpin, LOW);    
   }
 }
-
 
