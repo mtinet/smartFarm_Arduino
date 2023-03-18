@@ -103,7 +103,7 @@ void loop() {
       analogWrite(A_IA, i);  // 값을 변화시키면 서 호스에서 나오는 물의 양을 적정하게 설정
       digitalWrite(A_IB, LOW);    
       delay(150);
-      Serial.println(i);
+      //Serial.println(i);
     }
     digitalWrite(A_IA, LOW);
     digitalWrite(A_IB, LOW);
