@@ -13,22 +13,22 @@
 ### 센서  
 - 수분센서: A0
 - 조도센서: A1
-- 온도, 습도센서(AHT10): 
-  SCL - A5
-  SDA - A4
+- 온도, 습도센서(AHT10):  
+  SCL - A5  
+  SDA - A4  
 
 ### 액츄에이터  
 - LED: 13
-- LCD(LiquidCrystal_I2C): 
-  SCL - A5
-  SDA - A4
+- LCD(LiquidCrystal_I2C):  
+  SCL - A5  
+  SDA - A4  
   
-- 워터펌프: 
-  A_IA - 7
-  A_IB - 6
-- 팬: 
-  B_IA - 9
-  B_IB - 8
+- 워터펌프:  
+  A_IA - 7  
+  A_IB - 6  
+- 팬:  
+  B_IA - 9  
+  B_IB - 8  
 
 ## 아두이노를 이용한 스마트팜 코드
 ```Arduino
