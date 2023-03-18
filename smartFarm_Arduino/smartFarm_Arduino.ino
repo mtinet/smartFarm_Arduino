@@ -17,8 +17,15 @@ int soil, psoil;  // 수분센서 값을 사용하기 위한 변수 선언
 int val, cdsval, pcdsval; // 조도센서 값을 사용하기 위한 변수 선언
 float t = 0;
 float h = 0;
-int waterpumpPower = 150;
-int fanPower = 255;
+
+// 설정 값 조정 부분
+int waterpumpPower = 150; // 150 ~ 255 범위에서 워터펌프 파워가 세면 수치를 줄이고, 워터펌프 파워가 약하면 수치를 늘리세요.
+int waterpumpDelay = 100; // 50 ~ 150 범위에서 물 공급량이 많으면 수치를 줄이고, 물 공급량이 적으면 수치를 늘리세요.
+int fanPower = 255; // 150 ~ 255 범위에서 팬 파워가 세면 수치를 줄이고, 팬 파워가 약하면 수치를 늘리세요.
+int maxSoil = 30; // 토양의 수분 값이 이 수치보다 적으면 워터펌프가 동작합니다. 1~90 사이의 수치 중 적정한 값을 넣으세요.
+int minTemp = 30; // 온도가 이 수치도보다 높으면 팬이 동작합니다. 20~50 사이의 수치 중 적정한 값을 넣으세요.
+int maxHumi = 70; // 습도가 이 수치도보다 높으면 팬이 동작합니다. 60~100 사이의 수치 중 적정한 값을 넣으세요.
+int maxLight = 70; // 조도가 이 수치도보다 낮으면 LED이 동작합니다. 0~80 사이의 수치 중 적정한 값을 넣으세요.
 
 void setup() {
   // AHT10 초기 설정
@@ -98,11 +105,11 @@ void loop() {
   delay(1000); 
 
   // 수분 수치에 따라 워터펌프를 제어
-  if(psoil < 30) { // 토양수분값이 30미만이면
+  if(psoil < maxSoil) { // 토양수분값이 30미만이면
     for (int i = 120; i < waterpumpPower; i++) {
       analogWrite(A_IA, i);  // 값을 변화시키면 서 호스에서 나오는 물의 양을 적정하게 설정
       digitalWrite(A_IB, LOW);    
-      delay(150);
+      delay(waterpumpDelay);
       //Serial.println(i);
     }
     digitalWrite(A_IA, LOW);
@@ -114,7 +121,7 @@ void loop() {
   delay(500); 
 
   // 온도 수치에 따라 팬을 제어
-  if(t >= 20 || h >= 60) { // 온도가 20이상 또는 습도가 60이상이면,  || => [Shift] + [\]
+  if(t >= minTemp || h >= maxHumi) { // 온도가 30이상 또는 습도가 70이상이면,  || => [Shift] + [\]
     digitalWrite(B_IA, HIGH);  // 값을 변화시키면서 팬의 세기를 설정(0~255)
     digitalWrite(B_IB, LOW);
     delay(5000);
@@ -126,7 +133,7 @@ void loop() {
   }
 
   // 조도 수치에 따라 LED를 제어
-  if (pcdsval < 70) { // 조도센서값이 70미만이면
+  if (pcdsval < maxLight) { // 조도센서값이 70미만이면
     digitalWrite(cds_ledpin, HIGH );   
   } else {  // 그 외 조도센서값이면 LED를 끄라
     digitalWrite(cds_ledpin, LOW);    
